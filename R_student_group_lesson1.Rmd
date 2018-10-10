@@ -1,0 +1,595 @@
+---
+title: "第 一 堂 課"
+subtitle: "我 討 厭 教 R 基 礎 ！"
+author: "Steven Yeo"
+date: "2018/10/23"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>`
+      
+
+---
+
+class: inverse, center, middle
+```{r xaringan-themer, include = FALSE}
+library(xaringanthemer)
+mono_light(
+  base_color = "#23395b",
+  header_font_google = google_font("Microsoft YaHei"),
+  text_font_google   = google_font("Microsoft YaHei", "300", "300i"),
+  code_font_google   = google_font("Droid Mono"),
+  link_color = "#A20055",
+  code_inline_background_color = "	#F8F8FF"
+)
+```
+<style>
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: grey;
+}
+</style>
+
+
+```{r out.width = "70%", fig.align = "center", echo=FALSE}
+knitr::include_graphics("www/started.png")
+```
+
+???
+
+資料分析其實就跟冒險一樣好玩
+
+---
+class: inverse, middle
+
+# 乏味、枯燥、無聊
+
+--
+
+# 變得有趣一點(盡量啦...)
+
+---
+class: inverse, center, middle
+
+# GO！
+
+---
+
+# 工欲善其事、必先利其器
+
+.large[首先從 [R](https://cloud.r-project.org/) 安裝![](www\R.png)]
+
+--
+
+.large[除非你真的很愛敲 code 不然請從 [RStudio](https://www.rstudio.com/products/rstudio/) 安裝 ![](www\RStudio.png)]
+
+
+
+---
+class: center
+
+### .large[RStudio ???]
+
+--
+
+![](www\rstudio_Iinterface.png)
+
+[RStudio Cheat Sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/rstudio-ide.pdf)
+---
+
+# 先別急著敲 code ！
+
+.large[先觀察看看下列的程式碼，最後結果會出現什麼？]
+```{r , eval= FALSE }
+a <- 10
+b <- 20
+c <- 30
+sum(a,b,c)
+
+```
+
+--
+.large[就是那麼簡單！]
+```{r comment='#', echo=FALSE,warning=FALSE}
+a <- 10
+b <- 20
+c <- 30
+sum(a,b,c)
+```
+
+--
+.large[回頭看看，先記一下]
+- .large[a、b、c 是**數值**物件]
+- .large[而 `sum()` 是一種 `function` ]
+---
+# 先別急著敲 code ！
+
+.large[其實也可以用  `=`  來指定創造一個物件]
+```{r , eval= FALSE}
+a = 10
+b = 20
+c = 30
+sum(a,b,c)
+```
+
+--
+.large[一樣可以得出，但我個人習慣都用  `<-`  以免跟**真正的等於**搞混 ] 
+```{r comment='#', echo=FALSE,warning=FALSE}
+a = 10
+b = 20
+c = 30
+sum(a,b,c)
+```
+
+.large[那**真正的等於**是什麼？] 
+
+---
+
+# 邏輯符號
+
+.large[試著在 RStudio 的 **Code Editor** 中輸入下列程式碼，並執行程式碼！]
+```{r, eval=FALSE}
+a <- 50
+b <- 40
+c <- 50
+a == b
+a == c
+```
+--
+```{r comment='#', echo=FALSE,warning=FALSE}
+a <- 50
+b <- 40
+c <- 50
+a == b
+a == c
+```
+.large[這叫做布林值(Boolean)在 R 中判斷任何是非對錯都是以此為單位，很重要！]
+
+
+.large[你可以自己試試!=、>、<、<=、>= ...等]
+
+--
+
+.large[有邏輯符號，那一定也會有 ...]
+
+---
+# 運算符號
+
+.large[不外乎就 `+ - * /` 而運算符號回傳的是一個數值物件]
+
+當然也有其他的運算符號，請試試以下程式碼：
+```{r, eval=FALSE}
+2^3
+2^4
+(2^4) %/% 5
+32 %/% 5
+(2^4) %% 5
+32 %% 5
+```
+--
+.large[到這邊為止，R 就只是一台簡單的計算機，但真只有如此嗎？]
+
+---
+background-image: url(https://scontent.ftpe8-2.fna.fbcdn.net/v/t1.15752-9/43542756_2170528779865577_3566464830267195392_n.png?_nc_cat=110&oh=b8e8e358c22d2ecc5f30bbd97fd175ea&oe=5C1467F3)
+---
+# 字元 (character)
+
+我們來試試看建立文字物件吧！ 使用 `" "` ！
+```{r, eval=FALSE}
+Me <- "Steven Yeo"
+Major <- "Finance"
+```
+--
+
+接著我們來建立一串文字，也就是字串(String)，利用 `c( )` 這個 function！
+
+```{r, eval=FALSE}
+Partner <- c("Rick", "Morty", "Steven")
+IQ <- c("180", "20", "100")
+```
+--
+
+接著請大家利用 `sum()` 把剛剛建立的 IQ 加總看看，看看發生了什麼事？
+```{r, eval=FALSE}
+sum(IQ)
+```
+--
+
+為什麼會這樣？
+
+
+
+---
+
+# 資料結構－向量(vector)
+## 建立向量
+
+- 利用 `c()` 建立向量 ！
+
+- 向量可以是數值向量也可以是文字向量(string)甚至是布林向量 ！
+
+- 向量只有一種資料型態 ！
+
+- 數值向量可以進行運算 ！
+
+--
+
+請試試一下例子，並使用 `mode()` 確認物件的資料型態：
+```{r, eval=FALSE}
+vec_type_check1 <- c("1", 2, TRUE)
+vec_type_check2 <- c(2, TRUE)
+mode(vec_type_check1)
+mode(vec_type_check2)
+```
+--
+
+資料型態強弱順序：character > complex > numeric > integer > logical
+
+---
+# 資料結構－向量(vector)
+## 查詢向量中的元素
+查詢向量元素的方式通常分成兩種，分別是**依據位置**以及**依據值**
+
+利用 `[ ]` 進行向量查詢
+
+.pull-left[
+- 依據位置
+```{r, eval=FALSE}
+x <- c(1,2,3,4,5)
+x[4]
+x[-4]
+x[2:4]
+x[-(2:4)]
+x[c(1,5)]
+```
+]
+
+.pull-right[
+- 依據值
+```{r, eval=FALSE}
+x[x == 5]
+x[x < 3]
+```
+]
+
+---
+# 資料結構－向量(vector)
+## 幫向量中的元素取名字
+
+利用 `names()` 來幫向量中的元素取名字
+```{r, eval=FALSE}
+x <- c(1,2,3,4,5)
+names(x) <- c("a","b","c","d","e")
+```
+--
+
+取完名字之後，也可以用名字來查詢元素！
+```{r, eval=FALSE}
+x["c"]
+x[c("a","b")]
+x[-c("a","b")]
+```
+
+---
+# 資料結構－向量(vector)
+## 來點 factor 吧　！
+
+使用 `factor()` 來建立因子向量！
+```{r, eval=FALSE}
+x <- factor(x)
+```
+
+我們來看看當向量變成 factor 後的結果
+
+--
+```{r comment='#'}
+x <- c(1:5)
+x <- factor(x)
+x
+```
+
+多了 Levels ！ 它跟 `names()` 有什麼不同？
+
+
+---
+# 資料結構－data.frame 
+## 建立data.frame
+記住！是由 **向量** 組成 **data.frame** 的，且向量長度必須相同 ！
+我們先建立兩個向量：
+```{r, eval=FALSE}
+person <- c("Rick", "Morty", "Steven", "Beth")
+IQ <- c(180, 20, 100, 80)
+EQ <- c(80, 100, 100, 80)
+member_profile <- data.frame(person, IQ, EQ)
+```
+我們來看看結果
+--
+```{r comment='#', echo=FALSE}
+person <- c("Rick", "Morty", "Steven", "Beth")
+IQ <- c(180, 20, 100, 80)
+EQ <- c(80, 100, 100, 80)
+member_profile <- data.frame(person, IQ, EQ)
+member_profile
+```
+
+就這麼簡單！但你有發現什麼嗎？
+
+---
+# 資料結構－data.frame 
+## 查詢data.frame 利用 `[ ]`
+###懶得打字了，請大家看 [R basic](https://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf) 的小抄！
+
+```{r out.width = "30%", fig.align = "center", echo=FALSE}
+knitr::include_graphics("www/Rick.png")
+```
+
+---
+# 資料結構－什麼都能裝的list
+## 建立 list 利用 ` list( ) `
+但請先試試以下程式碼，看看會發生什麼事？
+```{r, eval=FALSE}
+character_ele <- c("a", "b", "c", "e")
+numeric_ele <- c(1:10)
+df1 <- data.frame(character_ele, numeric_ele)
+```
+--
+換換這招吧
+```{r, eval=FALSE}
+list1 <- list(character_ele, numeric_ele)
+```
+--
+成功了！List 真的是什麼都能裝的箱子 ！當然，你也可以幫 list 中的元素取名字
+```{r, eval=FALSE}
+names(list1) <- c("character_ele", "numeric_ele")
+```
+關於 list 的物件查詢，一樣也可參考[R basic](https://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf) 的小抄！如果知道想怎麼更進階的玩 list 可以參考[R for Data Science](http://r4ds.had.co.nz/vectors.html#lists)的 list 章節！
+
+---
+class: middle, center, inverse
+# 做點小練習
+### 請做出一個data.frame，欄位名稱分別是「name」、「major」、「grade」、「height」，請詢問三位同學來完成這個data.frame
+
+
+---
+class: inverse, middle
+## 回顧一下
+- 你了解 R 中的運算以及邏輯符號
+
+
+- 你了解 R 中常見的資料型態有數值、邏輯、字元
+
+
+- 你了解 R 中常見的資料結構有向量、資料框、list
+
+
+- 你了解以上物件建立以及查詢元素(element)的方式
+
+--
+
+接下來．．．
+---
+class: inverse, center, middle
+
+#學程式都一定會遇到的 ...
+--
+
+#流程控制！！！
+
+--
+
+#GO ！
+
+---
+#流程控制－if...else...
+## 單純的 ifelse
+一樣先別急著敲 code，先看英文猜猜這段 code 再說什麼
+```{r, eval=FALSE}
+morty_IQ <- 100
+if (morty_IQ > 80) {
+  print("abnormal!")
+} else {
+  print("normal!")
+}
+```
+--
+
+翻譯成中文就是「如果 Morty IQ 大於 80 的話，請回傳"abnormal"，否則回傳"normal"」
+就這這麼簡單，接著我們回頭看一下寫法！！
+
+--
+
+如果是單純的 if...else 其實也可以用 function ` ifelse() `簡化
+```{r, eval=FALSE}
+ifelse(morty_IQ > 80, print("abnormal!"), print("normal!"))
+```
+
+---
+#流程控制－if...else...
+## 更多條件的 ifelse
+
+當然，ifelse 不只可以用來應對只有是非的情況，也可以新增更多條件
+```{r, eval=FALSE}
+morty_IQ <- 20
+if (morty_IQ > 80) {
+  print("abnormal!")
+} else if(morty_IQ == 20) {
+  print("normal!")
+} else {
+    print("idiot!")
+  }
+```
+
+---
+#流程控制－for 迴圈
+先來個簡單的例子，它的語法架構跟前面的 ifelse 超級像！
+```{r, eval=FALSE}
+for (i in 1:5) {
+  print(i)
+}
+```
+
+--
+那試著自己輸入看看這個 code ，並在執行之前猜猜會出現什麼結果？
+
+```{r, eval=FALSE}
+x=c(1:10)
+sum = 0
+for(i in x){
+    sum = sum+i
+}
+```
+
+--
+恩 ... 它會把 1:10 這個向量全部加總起來
+```{r comment='#', echo=FALSE}
+x=c(1:10)
+sum = 0
+for(i in x){
+    sum = sum+i
+}
+sum
+```
+---
+class: inverse, center, middle
+
+## 其實基礎已經學得差不多了(吧)
+
+```{r out.width = "55%", fig.align = "center", echo=FALSE}
+knitr::include_graphics("www/smith.gif")
+```
+
+--
+
+## 接著我們來談談 data
+---
+class: inverse, center, middle
+### 先認清一件事 我們不可能一筆一筆key data進R!
+```{r out.width = "55%", fig.align = "center", echo=FALSE}
+knitr::include_graphics("www/crazy_typing.gif")
+```
+--
+
+### 勢必要從外部引入、修改、再匯出
+
+---
+
+# 談談 data
+## 玩玩內建練習資料集 使用 ` data() ` 查看
+
+我們還是很老套地玩玩 `iris` 資料集吧 ... 可以用 `str()` 和 `summary()` 來觀察資料集
+```{r, eval=FALSE}
+str(iris)
+summary(iris)
+```
+
+這些資料集大部分都是 data.frame 都可以用前面教的方式來進行查詢索引！
+
+---
+
+# 談談 data 
+## 引入外部資料－認識相對、絕對路徑
+
+```{r out.width='100%', fig.height=3, eval=require('leaflet'), echo=FALSE,fig.align = "center"}
+library(leaflet)
+leaflet() %>% addTiles() %>% setView(121.193729, 24.971109, zoom = 17)
+```
+
+**絕對路徑**： 桃園市中壢區中大路300號管理學院二館
+
+**相對路徑**： 在鴻經館右邊
+
+---
+
+#談談 data
+
+## 匯入及匯出 data 
+以較為常見的 `.csv` 檔為例
+
+要匯出檔案的話，請直接輸入
+```{r, eval=FALSE}
+write.csv(iris, 'iris_output.csv')
+```
+匯出的檔案會直接匯出到當下的工作目錄中
+
+--
+
+```{r, eval=FALSE}
+read_iris <- read.csv('iris_output.csv')
+```
+
+以我自己個人習慣來說，我習慣先設定好自己的工作目錄，這樣讀檔時就不用寫一大串絕對路徑了～
+
+其實現在的 RStudio 拖拉點選就可以輕鬆匯入各種不同類型的檔案了！
+
+---
+# 雖然有點唐突
+## 最後我們來自己做 function 吧!
+
+我們前面一直提到 function, function ... 但我們只能用別人做好的嗎？
+不是的，我們也可以自己客製自己所需求的 funciton 例如：
+
+```{r, eval=FALSE}
+my_add = function(a,b){
+    c=a+b
+    print(c)
+}
+```
+
+也可以設定默認參數
+```{r, eval=FALSE}
+my_func = function(c=100,d=10){
+    c+d
+}
+my_func()
+my_func(5,7)
+
+```
+
+---
+
+#為下堂課做準備
+## 學會安裝及引入套件
+
+套件是開源軟體強大的地方所在！
+
+```{r out.width = "25%", fig.align = "center", echo=FALSE}
+knitr::include_graphics("www/r-packages.png")
+```
+安裝套件
+```{r, eval=FALSE}
+install.packages("套件名稱")
+```
+引入套件
+```{r, eval=FALSE}
+library(套件名稱)
+```
+
+---
+class: inverse, center, middle
+
+## 最後恭喜大家踏出第一步！
+```{r out.width = "70%", fig.align = "center", echo=FALSE}
+knitr::include_graphics("www/rick.gif")
+```
